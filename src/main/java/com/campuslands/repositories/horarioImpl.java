@@ -19,9 +19,9 @@ public class horarioImpl implements repository<horario>{
     private horario crearHorario(ResultSet campo) throws SQLException{
         horario t = new horario();
         t.setHorario_id(campo.getInt("id_horario"));
-        t.setHorario_dia(campo.getDate("dia").toLocalDate());
-        t.setHorario_hora_inicio(campo.getTimestamp("hora_inicio").toLocalDateTime());
-        t.setHorario_hora_fin(campo.getTimestamp("hora_fin").toLocalDateTime());
+        t.setHorario_dia(campo.getString("dia"));
+        t.setHorario_hora_inicio(campo.getString("hora_inicio"));
+        t.setHorario_hora_fin(campo.getString("hora_fin"));
         t.setAsignatura_id(campo.getInt("id_salon"));
         t.setSalon_id(campo.getInt("id_asignatura"));
 

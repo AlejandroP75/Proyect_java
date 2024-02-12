@@ -1,7 +1,5 @@
 package com.campuslands.services;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 import com.campuslands.models.horario;
@@ -22,14 +20,13 @@ public class ServiceHorario implements Services<horario> {
         horario c = new horario();
 
         System.out.print("Digite el dia --> ");
-        LocalDate dia = LocalDate.parse(leer.next());
+        String dia = leer.next();
         
         System.out.print("Digite la hora de inicio --> ");
-        leer.nextLine();
-        LocalDateTime h_inicio = LocalDateTime.parse(leer.nextLine());
+        String h_inicio = leer.next();
 
         System.out.print("Digite la hora de fin --> ");
-        LocalDateTime h_fin = LocalDateTime.parse(leer.nextLine());
+        String h_fin = leer.next();
 
         System.out.print("Digite el id del salon --> ");
         int id_sal = leer.nextInt();
