@@ -139,6 +139,7 @@ public class ServiceSalon implements Services<salon> {
             System.out.println("3. Eliminar datos de salon");
             System.out.println("4. Buscar datos de salon");
             System.out.println("5. Listar datos de salon");
+            System.out.println("6. Salir");
             System.out.println("======================================="); 
             System.out.print("\nDigite la opción deseada --> ");
             d = leer.nextByte();

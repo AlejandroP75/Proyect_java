@@ -2,14 +2,35 @@ package com.campuslands.services;
 
 import java.util.List;
 import java.util.Scanner;
+
+import com.campuslands.models.asignatura;
+import com.campuslands.models.horario;
 import com.campuslands.models.matricula;
+import com.campuslands.models.salon;
+import com.campuslands.repositories.asignaturaImpl;
+import com.campuslands.repositories.horarioImpl;
 import com.campuslands.repositories.matriculaImpl;
 import com.campuslands.repositories.repository;
+import com.campuslands.repositories.salonImpl;
 
 public class ServiceMatricula implements Services<matricula> {
     public static Scanner leer = new Scanner(System.in);
     @SuppressWarnings("rawtypes")
     private static final repository matriculaRepositorio = new matriculaImpl();
+    @SuppressWarnings("rawtypes")
+    private static final repository salonRepositorio = new salonImpl();
+    @SuppressWarnings("unchecked")
+    List<salon> listarSalones = salonRepositorio.listar();
+    @SuppressWarnings("rawtypes")
+    private static final repository asignaturaRepositorio = new asignaturaImpl();
+    @SuppressWarnings("unchecked")
+    List<asignatura> listarAsignaturas = asignaturaRepositorio.listar();
+    @SuppressWarnings("unchecked")
+    List<matricula> listarMatriculas = matriculaRepositorio.listar();
+    @SuppressWarnings("rawtypes")
+    private static final repository horarioRepositorio = new horarioImpl();
+    @SuppressWarnings("unchecked")
+    List<horario> listarHorarios = horarioRepositorio.listar();
 
     public void limpiar(){
         leer.nextLine();
@@ -47,7 +68,7 @@ public class ServiceMatricula implements Services<matricula> {
             }
             break;
         }
-        
+
         c.setAlumno_id(id_alu);
         c.setAsignatura_id(id_asi);
         c.setPeriodo_id(id_per);
@@ -125,6 +146,7 @@ public class ServiceMatricula implements Services<matricula> {
             System.out.println("3. Eliminar datos de matricula");
             System.out.println("4. Buscar datos de matricula");
             System.out.println("5. Listar datos de matricula");
+            System.out.println("6. Salir");
             System.out.println("======================================="); 
             System.out.print("\nDigite la opción deseada --> ");
             d = leer.nextByte();

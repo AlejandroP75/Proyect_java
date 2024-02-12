@@ -117,6 +117,7 @@ public class ServiceAlumno implements Services<alumno> {
             System.out.println("3. Eliminar datos de alumno");
             System.out.println("4. Buscar datos de alumno");
             System.out.println("5. Listar datos de alumno");
+            System.out.println("6. Salir");
             System.out.println("======================================="); 
             System.out.print("\nDigite la opción deseada --> ");
             d = leer.nextByte();
@@ -137,6 +138,9 @@ public class ServiceAlumno implements Services<alumno> {
                 case 5:
                     listar();
                     break;
+                case 6:
+                    return;
+                    
                 default:
                     System.out.println("ERROR, opción no valida");
                     break;

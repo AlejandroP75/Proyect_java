@@ -99,6 +99,7 @@ public class ServiceCurso implements Services<curso> {
             System.out.println("3. Eliminar datos de curso");
             System.out.println("4. Buscar datos de curso");
             System.out.println("5. Listar datos de curso");
+            System.out.println("6. Salir");
             System.out.println("======================================="); 
             System.out.print("\nDigite la opción deseada --> ");
             d = leer.nextByte();

@@ -158,6 +158,7 @@ public class ServiceHorario implements Services<horario> {
             System.out.println("3. Eliminar datos de horario");
             System.out.println("4. Buscar datos de horario");
             System.out.println("5. Listar datos de horario");
+            System.out.println("6. Salir");
             System.out.println("======================================="); 
             System.out.print("\nDigite la opción deseada --> ");
             d = leer.nextByte();

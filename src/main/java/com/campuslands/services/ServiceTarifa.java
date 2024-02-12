@@ -127,6 +127,7 @@ public class ServiceTarifa implements Services<tarifa> {
             System.out.println("3. Eliminar datos de tarifa");
             System.out.println("4. Buscar datos de tarifa");
             System.out.println("5. Listar datos de tarifa");
+            System.out.println("6. Salir");
             System.out.println("======================================="); 
             System.out.print("\nDigite la opción deseada --> ");
             d = leer.nextByte();

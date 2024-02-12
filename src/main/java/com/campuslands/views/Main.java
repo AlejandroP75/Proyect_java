@@ -1,9 +1,11 @@
 package com.campuslands.views;
 
 import java.util.Scanner;
+
+import com.campuslands.services.ServiceReportes;
 import com.campuslands.services.Services;
 
-public class Main {
+public class Main extends ServiceReportes{
     public static Scanner leer = new Scanner(System.in);
     @SuppressWarnings("rawtypes")
     public static void main(String[] args) {
@@ -27,11 +29,12 @@ public class Main {
             System.out.println("13.Programa");
             System.out.println("14.Salon");
             System.out.println("15.Tarifa");
+            System.out.println("16.Reportes");
             System.out.println("=======================================");
             System.out.print("Ingrese la opcion que desea--> ");
             op = leer.nextInt();
 
-            if(op < 1 || op > 15){
+            if(op < 1 || op > 16){
                 System.out.println("Seleccione una opcion valida, vuelva a intentarlo");
                 continue;
             }
@@ -97,6 +100,9 @@ public class Main {
             case 15 -> {
                 Services tarifa = fabrica.getConexion("tarifas");
                 tarifa.menu();
+            }
+            case 16 -> {
+                menuReportes();
             }
             default -> fabrica.getConexion("Se equivoco");
         };      

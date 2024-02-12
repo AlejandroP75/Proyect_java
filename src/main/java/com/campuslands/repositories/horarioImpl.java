@@ -90,9 +90,9 @@ public class horarioImpl implements repository<horario>{
                 (?, ?, ?, ?, ?);
                 """;
             try (PreparedStatement fila = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-                fila.setDate(1, java.sql.Date.valueOf(entidad.getHorario_dia()));
-                fila.setTimestamp(2, java.sql.Timestamp.valueOf(entidad.getHorario_hora_inicio()));
-                fila.setTimestamp(3, java.sql.Timestamp.valueOf(entidad.getHorario_hora_fin()));
+                fila.setString(1, entidad.getHorario_dia());
+                fila.setString(2, entidad.getHorario_hora_inicio());
+                fila.setString(3, entidad.getHorario_hora_fin());
                 fila.setInt(4, entidad.getSalon_id());
                 fila.setInt(5, entidad.getAsignatura_id());
 
@@ -154,9 +154,9 @@ public class horarioImpl implements repository<horario>{
                 WHERE id_horario = ?;
                 """;
         try (PreparedStatement fila = getConnection().prepareStatement(sql)){
-            fila.setDate(1, java.sql.Date.valueOf(entidad.getHorario_dia()));
-            fila.setTimestamp(2, java.sql.Timestamp.valueOf(entidad.getHorario_hora_inicio()));
-            fila.setTimestamp(3, java.sql.Timestamp.valueOf(entidad.getHorario_hora_fin()));
+            fila.setString(1, entidad.getHorario_dia());
+            fila.setString(2, entidad.getHorario_hora_inicio());
+            fila.setString(3, entidad.getHorario_hora_fin());
             fila.setInt(4, entidad.getSalon_id());
             fila.setInt(5, entidad.getAsignatura_id());
             fila.setInt(6, entidad.getHorario_id());
