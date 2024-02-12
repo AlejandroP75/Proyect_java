@@ -13,7 +13,10 @@ public class Main extends ServiceReportes{
 
         int op = 0;
         while (true) {
+            System.out.print("\033[H\033[2J");  
+            System.out.flush();  
             System.out.println("=======================================");
+            System.out.println("MENU PRINCIPAL\n");
             System.out.println("1.Alumno");
             System.out.println("2.Asignatura");
             System.out.println("3.Ciudad");
