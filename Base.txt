@@ -1,0 +1,315 @@
+-- Active: 1707737079225@@127.0.0.1@3306
+CREATE DATABASE universidad_sabios;
+USE universidad_sabios;
+
+CREATE TABLE `Ciudad` (
+    `id_ciudad` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `nombre_ciudad` VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE `Direccion` (
+    `id_direccion` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `direccion` VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE `Persona` (
+    `id_persona` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `tipo_documento` VARCHAR(255) NOT NULL,
+    `numero_documento` INT NOT NULL,
+    `nombres` VARCHAR(255) NOT NULL,
+    `apellidos` VARCHAR(255) NOT NULL,
+    `id_ciudad` INT UNSIGNED NOT NULL,
+    `id_direccion` INT UNSIGNED NOT NULL,
+    `telefono` INT NOT NULL,
+    `fecha_nacimiento` DATE NOT NULL,
+    `sexo` VARCHAR(10) NOT NULL,
+    FOREIGN KEY (`id_ciudad`) REFERENCES `Ciudad` (`id_ciudad`),
+    FOREIGN KEY (`id_direccion`) REFERENCES `Direccion` (`id_direccion`)
+);
+
+CREATE TABLE `Edificio` (
+    `id_edificio` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `nombre` VARCHAR(255) NOT NULL,
+    `numero_pisos` INT NOT NULL
+);
+
+CREATE TABLE `Salon` (
+    `id_salon` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `capacidad` INT NOT NULL,
+    `piso` INT NOT NULL,
+    `id_edificio` INT UNSIGNED NOT NULL,
+    FOREIGN KEY (`id_edificio`) REFERENCES `Edificio` (`id_edificio`)
+);
+
+CREATE TABLE `Periodo` (
+    `id_periodo` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `año` INT NOT NULL,
+    `semestre` INT NOT NULL,
+    `nombre_periodo` VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE `Departamento` (
+    `id_departamento` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `nombre_departamento` VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE `Curso` (
+    `id_curso` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `nombre_curso` VARCHAR(255) NOT NULL,
+    `guia_catedra` VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE `Programa` (
+    `id_programa` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `nombre_programa` VARCHAR(255) NOT NULL,
+    `nivel_programa` VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE `Alumno` (
+    `id_alumno` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_programa` INT UNSIGNED NOT NULL,
+    `id_persona` INT UNSIGNED NOT NULL,
+    FOREIGN KEY (`id_programa`) REFERENCES `Programa` (`id_programa`),
+    FOREIGN KEY (`id_persona`) REFERENCES `Persona` (`id_persona`)
+);
+
+CREATE TABLE `Profesor` (
+    `id_profesor` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_departamento` INT UNSIGNED NOT NULL,
+    `id_persona` INT UNSIGNED NOT NULL,
+    FOREIGN KEY (`id_departamento`) REFERENCES `Departamento` (`id_departamento`),
+    FOREIGN KEY (`id_persona`) REFERENCES `Persona` (`id_persona`)
+);
+
+CREATE TABLE `Tarifa` (
+    `id_tarifa` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_programa` INT UNSIGNED NOT NULL,
+    `id_periodo` INT UNSIGNED NOT NULL,
+    `valor_credito` DOUBLE NOT NULL,
+    FOREIGN KEY (`id_programa`) REFERENCES `Programa` (`id_programa`),
+    FOREIGN KEY (`id_periodo`) REFERENCES `Periodo` (`id_periodo`)
+);
+
+CREATE TABLE `Asignatura` (
+    `id_asignatura` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `nombre_asignatura` VARCHAR(255) NOT NULL,
+    `numero_creditos` INT NOT NULL,
+    `id_profesor` INT UNSIGNED NOT NULL,
+    `id_curso` INT UNSIGNED NOT NULL,
+    `id_periodo` INT UNSIGNED NOT NULL,
+    FOREIGN KEY (`id_profesor`) REFERENCES `Profesor` (`id_profesor`),
+    FOREIGN KEY (`id_curso`) REFERENCES `Curso` (`id_curso`),
+    FOREIGN KEY (`id_periodo`) REFERENCES `Periodo` (`id_periodo`)
+);
+
+CREATE TABLE `Horario` (
+    `id_horario` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_salon` INT UNSIGNED NOT NULL,
+    `id_asignatura` INT UNSIGNED NOT NULL,
+    `dia` VARCHAR(255) NOT NULL,
+    `hora_inicio` VARCHAR(255) NOT NULL,
+    `hora_fin` VARCHAR(255) NOT NULL,
+    FOREIGN KEY (`id_salon`) REFERENCES `Salon` (`id_salon`),
+    FOREIGN KEY (`id_asignatura`) REFERENCES `Asignatura` (`id_asignatura`)
+);
+
+CREATE TABLE `Matricula` (
+    `id_matricula` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_alumno` INT UNSIGNED NOT NULL,
+    `id_asignatura` INT UNSIGNED NOT NULL,
+    `id_periodo` INT UNSIGNED NOT NULL,
+    FOREIGN KEY (`id_alumno`) REFERENCES `Alumno` (`id_alumno`),
+    FOREIGN KEY (`id_asignatura`) REFERENCES `Asignatura` (`id_asignatura`),
+    FOREIGN KEY (`id_periodo`) REFERENCES `Periodo` (`id_periodo`)
+);
+
+-- Inserts para poblar las tablas
+INSERT INTO Ciudad (nombre_ciudad) VALUES 
+('Ciudad A'),
+('Ciudad B'),
+('Ciudad C'),
+('Ciudad D'),
+('Ciudad E'),
+('Ciudad F'),
+('Ciudad G'),
+('Ciudad H'),
+('Ciudad I'),
+('Ciudad J');
+
+INSERT INTO Direccion (direccion) VALUES 
+('Dirección 1'),
+('Dirección 2'),
+('Dirección 3'),
+('Dirección 4'),
+('Dirección 5'),
+('Dirección 6'),
+('Dirección 7'),
+('Dirección 8'),
+('Dirección 9'),
+('Dirección 10');
+
+INSERT INTO Persona (tipo_documento, numero_documento, nombres, apellidos, id_ciudad, id_direccion, telefono, fecha_nacimiento, sexo) VALUES 
+('DNI', 12345678, 'Juan', 'Pérez', 1, 1, 123456789, '1990-05-15', 'Masculino'),
+('Cédula', 87654321, 'María', 'Gómez', 2, 2, 987654321, '1992-10-20', 'Femenino'),
+('Pasaporte', 13579246, 'Pedro', 'Martínez', 3, 3, 654321987, '1985-03-25', 'Masculino'),
+('DNI', 98765432, 'Ana', 'López', 4, 4, 321987654, '1995-08-12', 'Femenino'),
+('Cédula', 24681357, 'Carlos', 'Rodríguez', 5, 5, 789456123, '1988-12-30', 'Masculino'),
+('Pasaporte', 98765431, 'Laura', 'Sánchez', 6, 6, 456123789, '1998-02-28', 'Femenino'),
+('DNI', 45678912, 'Diego', 'Hernández', 7, 7, 123789456, '1993-04-17', 'Masculino'),
+('Cédula', 32165498, 'Sofía', 'Fernández', 8, 8, 987654123, '1997-06-10', 'Femenino'),
+('Pasaporte', 98712365, 'Martín', 'Gutiérrez', 9, 9, 654123987, '1991-11-05', 'Masculino'),
+('DNI', 78945612, 'Lucía', 'Díaz', 10, 10, 321654987, '1994-09-03', 'Femenino'),
+('DNI', 98765439, 'Julia', 'Martínez', 1, 1, 123456789, '1991-07-18', 'Femenino'),
+('Cédula', 87654329, 'Andrés', 'González', 2, 2, 987654321, '1989-11-26', 'Masculino'),
+('Pasaporte', 13579248, 'Mónica', 'Pérez', 3, 3, 654321987, '1993-02-15', 'Femenino'),
+('DNI', 98765438, 'Gabriel', 'Sánchez', 4, 4, 321987654, '1990-05-29', 'Masculino'),
+('Cédula', 24681358, 'Valeria', 'López', 5, 5, 789456123, '1996-09-14', 'Femenino'),
+('Pasaporte', 98765435, 'Fernando', 'Martín', 6, 6, 456123789, '1994-03-22', 'Masculino'),
+('DNI', 45678914, 'Camila', 'Rodríguez', 7, 7, 123789456, '1992-08-07', 'Femenino'),
+('Cédula', 32165497, 'Javier', 'Hernández', 8, 8, 987654123, '1987-10-11', 'Masculino'),
+('Pasaporte', 98712363, 'Isabella', 'García', 9, 9, 654123987, '1995-04-03', 'Femenino'),
+('DNI', 78945613, 'Maximiliano', 'Díaz', 10, 10, 321654987, '1988-12-25', 'Masculino');
+
+INSERT INTO Edificio (nombre, numero_pisos) VALUES 
+('Edificio A', 5),
+('Edificio B', 8),
+('Edificio C', 10),
+('Edificio D', 6),
+('Edificio E', 4),
+('Edificio F', 7),
+('Edificio G', 9),
+('Edificio H', 3),
+('Edificio I', 12),
+('Edificio J', 5);
+
+INSERT INTO Salon (capacidad, piso, id_edificio) VALUES 
+(50, 1, 1),
+(40, 2, 2),
+(60, 3, 3),
+(30, 4, 4),
+(55, 5, 5),
+(45, 1, 6),
+(35, 2, 7),
+(65, 3, 8),
+(25, 4, 9),
+(70, 5, 10);
+
+INSERT INTO Periodo (año, semestre, nombre_periodo) VALUES 
+(2023, 1, 'Semestre 1 - 2023'),
+(2023, 2, 'Semestre 2 - 2023'),
+(2024, 1, 'Semestre 1 - 2024'),
+(2024, 2, 'Semestre 2 - 2024'),
+(2025, 1, 'Semestre 1 - 2025'),
+(2025, 2, 'Semestre 2 - 2025'),
+(2026, 1, 'Semestre 1 - 2026'),
+(2026, 2, 'Semestre 2 - 2026'),
+(2027, 1, 'Semestre 1 - 2027'),
+(2027, 2, 'Semestre 2 - 2027');
+
+INSERT INTO Departamento (nombre_departamento) VALUES 
+('Departamento A'),
+('Departamento B'),
+('Departamento C'),
+('Departamento D'),
+('Departamento E'),
+('Departamento F'),
+('Departamento G'),
+('Departamento H'),
+('Departamento I'),
+('Departamento J');
+
+INSERT INTO Curso (nombre_curso, guia_catedra) VALUES 
+('Curso A', 'Guía de cátedra A'),
+('Curso B', 'Guía de cátedra B'),
+('Curso C', 'Guía de cátedra C'),
+('Curso D', 'Guía de cátedra D'),
+('Curso E', 'Guía de cátedra E'),
+('Curso F', 'Guía de cátedra F'),
+('Curso G', 'Guía de cátedra G'),
+('Curso H', 'Guía de cátedra H'),
+('Curso I', 'Guía de cátedra I'),
+('Curso J', 'Guía de cátedra J');
+
+INSERT INTO Programa (nombre_programa, nivel_programa) VALUES 
+('Programa A', 'Pregrado'),
+('Programa B', 'Pregrado'),
+('Programa C', 'Pregrado'),
+('Programa D', 'Pregrado'),
+('Programa E', 'Pregrado'),
+('Programa F', 'Pregrado'),
+('Programa G', 'Pregrado'),
+('Programa H', 'Pregrado'),
+('Programa I', 'Pregrado'),
+('Programa J', 'Pregrado');
+
+INSERT INTO Alumno (id_programa, id_persona) VALUES 
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10);
+
+INSERT INTO Profesor (id_departamento, id_persona) VALUES 
+(1, 11),
+(2, 12),
+(3, 13),
+(4, 14),
+(5, 15),
+(6, 16),
+(7, 17),
+(8, 18),
+(9, 19),
+(10, 20);
+
+INSERT INTO Tarifa (id_programa, id_periodo, valor_credito) VALUES 
+(1, 1, 100),
+(2, 2, 110),
+(3, 3, 120),
+(4, 4, 130),
+(5, 5, 140),
+(6, 6, 150),
+(7, 7, 160),
+(8, 8, 170),
+(9, 9, 180),
+(10, 10, 190);
+
+INSERT INTO Asignatura (nombre_asignatura, numero_creditos, id_profesor, id_curso, id_periodo) VALUES 
+('Asignatura A', 3, 1, 1, 1),
+('Asignatura B', 4, 2, 2, 2),
+('Asignatura C', 3, 3, 3, 3),
+('Asignatura D', 4, 4, 4, 4),
+('Asignatura E', 3, 5, 5, 5),
+('Asignatura F', 4, 6, 6, 6),
+('Asignatura G', 3, 7, 7, 7),
+('Asignatura H', 4, 8, 8, 8),
+('Asignatura I', 3, 9, 9, 9),
+('Asignatura J', 4, 10, 10, 10);
+
+INSERT INTO Horario (id_salon, id_asignatura, dia, hora_inicio, hora_fin) VALUES 
+(1, 1, 'Lunes', '08:00', '10:00'),
+(2, 2, 'Martes', '10:00', '12:00'),
+(3, 3, 'Miércoles', '08:00', '10:00'),
+(4, 4, 'Jueves', '10:00', '12:00'),
+(5, 5, 'Viernes', '08:00', '10:00'),
+(6, 6, 'Lunes', '10:00', '12:00'),
+(7, 7, 'Martes', '08:00', '10:00'),
+(8, 8, 'Miércoles', '10:00', '12:00'),
+(9, 9, 'Jueves', '08:00', '10:00'),
+(10, 10, 'Viernes', '10:00', '12:00');
+
+INSERT INTO Matricula (id_alumno, id_asignatura, id_periodo) VALUES 
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 4),
+(5, 5, 5),
+(6, 6, 6),
+(7, 7, 7),
+(8, 8, 8),
+(9, 9, 9),
+(10, 10, 10);
