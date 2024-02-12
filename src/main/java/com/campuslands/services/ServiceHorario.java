@@ -179,6 +179,8 @@ public class ServiceHorario implements Services<horario> {
                 case 5:
                     listar();
                     break;
+                case 6:
+                    return;
                 default:
                     System.out.println("ERROR, opción no valida");
                     break;

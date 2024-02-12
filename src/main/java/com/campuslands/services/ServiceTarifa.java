@@ -148,6 +148,8 @@ public class ServiceTarifa implements Services<tarifa> {
                 case 5:
                     listar();
                     break;
+                case 6:
+                    return;
                 default:
                     System.out.println("ERROR, opción no valida");
                     break;

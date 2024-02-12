@@ -14,11 +14,12 @@ public class ServiceReportes {
             System.out.println("3.Calcular los ingreso de la universidad por semestre");
             System.out.println("4.Imprimir el horario de un estudiante. Simplemente en forma de lista");
             System.out.println("5.Imprimir en forma descendente el número de matriculados por programa");
+            System.out.println("6.Salir");
             System.out.println("=======================================");
             System.out.print("Ingrese la opcion que desea--> ");
             op = leer.nextInt();
 
-            if(op < 1 || op > 5){
+            if(op < 1 || op > 6){
                 System.out.println("Seleccione una opcion valida, vuelva a intentarlo");
                 continue;
             }
@@ -40,7 +41,8 @@ public class ServiceReportes {
             case 5:
                 imprimirMatriculadosPrograma();
                 break;
-        
+            case 6:
+                return;
             default:
                 System.out.println("ERROR");
                 break;
