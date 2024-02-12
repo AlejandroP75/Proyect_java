@@ -14,7 +14,7 @@ public class Conexion {
     //variables para la conexion de las bases de datos
     private static final String URL="jdbc:mysql://localhost:3306/universidad_sabios?serverTimezone=UTC";
     private static final String USERNAME="root";
-    private static final String PASSWORD="alejandrop75";
+    private static final String PASSWORD="campus2024";
     //creamos el metodo para conectarnos a la base
     public Connection conectar(){
         try {
