@@ -19,10 +19,21 @@ public class ServicePersona implements Services<persona> {
     @Override
     public persona datos(){
         persona c = new persona();
+        String tipo_d;
+        LocalDate fecha;
+        LocalDate fechaActual = LocalDate.now();
+        int id_ciu, id_dir;
 
-        System.out.print("Digite el tipo de documento --> ");
-        String tipo_d = leer.next();
+        while (true) {
+            System.out.print("Digite el tipo de documento (CC, TI, CE) --> ");
+            tipo_d = leer.next();
 
+            if(!(tipo_d.equals("CC") || tipo_d.equals("TI") || tipo_d.equals("CE")) ){
+                System.out.println("\nIngrese un tipo valido, ingreselo igual a los sugeridos");
+                continue;
+            }
+            break;
+        }
         System.out.print("Digite el numero de documento --> ");
         int num_d = leer.nextInt();
 
@@ -36,18 +47,38 @@ public class ServicePersona implements Services<persona> {
         System.out.print("Digite el telefono de la persona --> ");
         int tel_p = leer.nextInt();
 
-        System.out.print("Digite la fecha de nacimiento de la persona (aaaa-mm-dd) --> ");
-        LocalDate fecha = LocalDate.parse(leer.next());
-
+        while (true) {
+            System.out.print("Digite la fecha de nacimiento de la persona (aaaa-mm-dd) --> ");
+            fecha = LocalDate.parse(leer.next());
+            if (fecha.isAfter(fechaActual) || fecha.isEqual(fechaActual)) {
+                System.out.println("La fecha de nacimiento no puede ser mayor o igual que la fecha actual.");
+                continue;
+            }
+            break;
+        }
         System.out.print("Digite el genero de la persona --> ");
         leer.nextLine();
         String gen = leer.nextLine();
 
-        System.out.print("Digite el id de la ciudad --> ");
-        int id_ciu = leer.nextInt();
+        while(true){
+            System.out.print("Digite el id de la ciudad --> ");
+            id_ciu = leer.nextInt();
+            if (!validarId(id_ciu)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
 
-        System.out.print("Digite el id de la direccion --> ");
-        int id_dir = leer.nextInt();
+        while(true){
+            System.out.print("Digite el id de la direccion --> ");
+            id_dir = leer.nextInt();
+            if (!validarId(id_dir)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
 
         c.setPersona_tipo_documento(tipo_d);
         c.setPersona_numero_documento(num_d);
@@ -170,5 +201,13 @@ public class ServicePersona implements Services<persona> {
             }
         }while(d != 0);
         
+    }
+
+    public boolean validarId(int id) {
+        Object entidad = personaRepositorio.porCodigo(id);
+        if (entidad == null) {
+            return false;
+        }
+        return true;
     }
 }

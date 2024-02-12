@@ -18,16 +18,36 @@ public class ServiceMatricula implements Services<matricula> {
     @Override
     public matricula datos(){
         matricula c = new matricula();
+        int id_alu, id_asi, id_per;
 
-        System.out.print("Digite el id del alumno --> ");
-        int id_alu = leer.nextInt();
+        while(true){
+            System.out.print("Digite el id del alumno --> ");
+            id_alu = leer.nextInt();
+            if (!validarId(id_alu)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
+        while(true){
+            System.out.print("Digite el id de la asignatura --> ");
+            id_asi = leer.nextInt();
+            if (!validarId(id_asi)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
+        while(true){
+            System.out.print("Digite el id del periodo --> ");
+            id_per = leer.nextInt();
+            if (!validarId(id_per)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
         
-        System.out.print("Digite el id de la asignatura --> ");
-        int id_asi = leer.nextInt();
-
-        System.out.print("Digite el id del periodo --> ");
-        int id_per = leer.nextInt();
-
         c.setAlumno_id(id_alu);
         c.setAsignatura_id(id_asi);
         c.setPeriodo_id(id_per);
@@ -131,5 +151,13 @@ public class ServiceMatricula implements Services<matricula> {
             }
         }while(d != 0);
         
+    }
+
+    public boolean validarId(int id) {
+        Object entidad = matriculaRepositorio.porCodigo(id);
+        if (entidad == null) {
+            return false;
+        }
+        return true;
     }
 }

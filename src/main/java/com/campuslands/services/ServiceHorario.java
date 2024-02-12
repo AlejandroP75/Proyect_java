@@ -18,21 +18,35 @@ public class ServiceHorario implements Services<horario> {
     @Override
     public horario datos(){
         horario c = new horario();
+        int id_asi, id_sal;
 
-        System.out.print("Digite el dia --> ");
+        System.out.print("Digite el dia (sin tilde) --> ");
         String dia = leer.next();
         
-        System.out.print("Digite la hora de inicio --> ");
+        System.out.print("Digite la hora de inicio (hh:mm) --> ");
         String h_inicio = leer.next();
 
-        System.out.print("Digite la hora de fin --> ");
+        System.out.print("Digite la hora de fin (hh:mm) --> ");
         String h_fin = leer.next();
 
-        System.out.print("Digite el id del salon --> ");
-        int id_sal = leer.nextInt();
-
-        System.out.print("Digite el id de la asignatura --> ");
-        int id_asi = leer.nextInt();
+        while(true){
+            System.out.print("Digite el id del salon --> ");
+            id_sal = leer.nextInt();
+            if (!validarId(id_sal)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
+        while(true){
+            System.out.print("Digite el id de la asignatura --> ");
+            id_asi = leer.nextInt();
+            if (!validarId(id_asi)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
 
         c.setHorario_dia(dia);
         c.setHorario_hora_inicio(h_inicio);
@@ -143,5 +157,14 @@ public class ServiceHorario implements Services<horario> {
             }
         }while(d != 0);
         
+    }
+
+    
+    public boolean validarId(int id) {
+        Object entidad = horarioRepositorio.porCodigo(id);
+        if (entidad == null) {
+            return false;
+        }
+        return true;
     }
 }

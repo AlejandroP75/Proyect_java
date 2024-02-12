@@ -18,12 +18,20 @@ public class ServiceEdificio implements Services<edificio> {
     @Override
     public edificio datos(){
         edificio c = new edificio();
+        int num_pis;
 
         System.out.print("Digite el nombre del edificio --> ");
         String nom_edi = leer.nextLine();
         
-        System.out.print("Digite el numero de pisos --> ");
-        int num_pis = leer.nextInt();
+        while (true) {
+            System.out.print("Digite el numero de pisos --> ");
+            num_pis = leer.nextInt();
+            if (num_pis < 1 || num_pis > 163) {
+                System.out.println("El numero de pisos debe estar entre 1 y 163");
+                continue;
+            }
+            break;
+        }
 
         c.setEdificio_nombre(nom_edi);
         c.setEdificio_pisos(num_pis);

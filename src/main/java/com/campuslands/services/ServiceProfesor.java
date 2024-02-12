@@ -18,12 +18,29 @@ public class ServiceProfesor implements Services<profesor> {
     @Override
     public profesor datos(){
         profesor c = new profesor();
+        int id_dep, id_per;
 
-        System.out.print("Digite el id del departamento --> ");
-        int id_dep = leer.nextInt();
-        
-        System.out.print("Digite el id de persona --> ");
-        int id_per = leer.nextInt();
+        while (true) {
+            System.out.print("Digite el id del departamento --> ");
+            id_dep = leer.nextInt();
+            if (!validarId(id_dep)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
+
+        while (true) {
+            System.out.print("Digite el id de la persona --> ");
+            id_per = leer.nextInt();
+
+            boolean exist = validarId(id_per);
+            if (!exist) {
+                System.out.println("El id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
 
         c.setDepartamento_id(id_dep);
         c.setPersona_id(id_per);
@@ -125,5 +142,12 @@ public class ServiceProfesor implements Services<profesor> {
             }
         }while(d != 0);
         
+    }
+    public boolean validarId(int id) {
+        Object entidad = profesorRepositorio.porCodigo(id);
+        if (entidad == null) {
+            return false;
+        }
+        return true;
     }
 }

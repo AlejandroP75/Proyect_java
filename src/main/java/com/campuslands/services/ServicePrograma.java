@@ -18,12 +18,21 @@ public class ServicePrograma implements Services<programa> {
     @Override
     public programa datos(){
         programa c = new programa();
+        String niv_pro;
 
         System.out.print("Digite el nombre del programa --> ");
         String nom_pro = leer.nextLine();
         
-        System.out.print("Digite el nivel del programa --> ");
-        String niv_pro = leer.nextLine();
+        while (true) {
+            System.out.print("Digite el nivel del programa (Pregrado)--> ");
+            niv_pro = leer.next();
+            if (!niv_pro.equals("Pregrado")) {
+                System.out.println("\nPor el momento solo tenemos la opción Pregrado");
+                continue;
+            }
+            break;
+        }
+
 
         c.setPrograma_nombre(nom_pro);
         c.setPrograma_nivel(niv_pro);

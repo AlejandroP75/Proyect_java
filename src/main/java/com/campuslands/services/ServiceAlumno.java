@@ -18,18 +18,36 @@ public class ServiceAlumno implements Services<alumno> {
     @Override
     public alumno datos(){
         alumno c = new alumno();
+        int id_pro, id_per;
 
-        System.out.print("Digite el id del programa --> ");
-        int id_pro = leer.nextInt();
-        alumnoRepositorio.porCodigo(id_pro);
-        System.out.print("Digite el id de persona --> ");
-        int id_per = leer.nextInt();
+        while (true) {
+            System.out.print("Digite el id del programa --> ");
+            id_pro = leer.nextInt();
+            if (!validarId(id_pro)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
+
+        while (true) {
+            System.out.print("Digite el id de la persona --> ");
+            id_per = leer.nextInt();
+
+            boolean exist = validarId(id_per);
+            if (!exist) {
+                System.out.println("El id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
 
         c.setPrograma_id(id_pro);
         c.setPersona_id(id_per);
 
         return c;
     }
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -126,4 +144,14 @@ public class ServiceAlumno implements Services<alumno> {
         }while(d != 0);
         
     }
+
+    public boolean validarId(int id) {
+        Object entidad = alumnoRepositorio.porCodigo(id);
+        if (entidad == null) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

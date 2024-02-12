@@ -18,13 +18,19 @@ public class ServicePeriodo implements Services<periodo> {
     @Override
     public periodo datos(){
         periodo c = new periodo();
+        int sem_per;
 
         System.out.print("Digite el año del periodo --> ");
         int ani_per = leer.nextInt();
-        
-        System.out.print("Digite el semestre del periodo --> ");
-        int sem_per = leer.nextInt();
-
+        while (true) {
+            System.out.print("Digite el semestre del periodo --> ");
+            sem_per = leer.nextInt();
+            if (sem_per != 1 && sem_per != 2) {
+                System.out.println("\nEl semestre solo puede ser 1 o 2, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
         System.out.print("Digite el nombre del periodo --> ");
         leer.nextLine();
         String nom_per = leer.nextLine();

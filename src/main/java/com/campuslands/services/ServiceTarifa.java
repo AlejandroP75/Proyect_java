@@ -18,15 +18,37 @@ public class ServiceTarifa implements Services<tarifa> {
     @Override
     public tarifa datos(){
         tarifa c = new tarifa();
+        int id_pro, id_per;
+        Double valor_credito;
 
-        System.out.print("Digite el id del programa --> ");
-        int id_pro = leer.nextInt();
-        
-        System.out.print("Digite el id del periodo --> ");
-        int id_per = leer.nextInt();
+        while (true) {
+            System.out.print("Digite el id del programa --> ");
+            id_pro = leer.nextInt();
+            if (!validarId(id_pro)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
+        while (true) {
+            System.out.print("Digite el id del periodo--> ");
+            id_per = leer.nextInt();
+            if (!validarId(id_per)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
 
-        System.out.print("Digite el valor del credito --> ");
-        Double valor_credito = leer.nextDouble();
+        while (true) {
+            System.out.print("Digite el valor del credito --> ");
+            valor_credito = leer.nextDouble();
+            if (valor_credito < 1) {
+                System.out.println("\nEl valor del credito no puede ser negativo o 0");
+                continue;
+            }
+            break;
+        }
 
         c.setPrograma_id(id_pro);
         c.setPeriodo_id(id_per);
@@ -131,5 +153,13 @@ public class ServiceTarifa implements Services<tarifa> {
             }
         }while(d != 0);
         
+    }
+
+    public boolean validarId(int id) {
+        Object entidad = tarifaRepositorio.porCodigo(id);
+        if (entidad == null) {
+            return false;
+        }
+        return true;
     }
 }

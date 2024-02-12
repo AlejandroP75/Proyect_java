@@ -18,22 +18,50 @@ public class ServiceAsignatura implements Services<asignatura> {
     @Override
     public asignatura datos(){
         asignatura c = new asignatura();
+        int num_cre, id_pro, id_cur, id_per;
 
         System.out.print("Digite el nombre de la asignatura --> ");
         String nom_asi = leer.nextLine();
         
-        System.out.print("Digite el numero de creditos --> ");
-        int num_cre = leer.nextInt();
+        while (true) {
+            System.out.print("Digite el numero de creditos --> ");
+            num_cre = leer.nextInt();
+            if (num_cre < 1) {
+                System.out.println("\nEl numero de creditos tiene que ser mayor que 0");
+                continue;
+            }
+            break;
+        }
 
-        System.out.print("Digite el id del profesor --> ");
-        int id_pro = leer.nextInt();
+        while (true) {
+            System.out.print("Digite el id del profesor --> ");
+            id_pro = leer.nextInt();
+            if (!validarId(id_pro)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
 
-        System.out.print("Digite el id del curso --> ");
-        int id_cur = leer.nextInt();
-
-        System.out.print("Digite el id del periodo --> ");
-        int id_per = leer.nextInt();
-
+        while (true) {
+            System.out.print("Digite el id del curso --> ");
+            id_cur = leer.nextInt();
+            if (!validarId(id_cur)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
+        while (true) {
+            System.out.print("Digite el id del periodo --> ");
+            id_per = leer.nextInt();
+            if (!validarId(id_per)) {
+                System.out.println("\nEl id no existe, vuelva a intentarlo");
+                continue;
+            }
+            break;
+        }
+        
         c.setAsignatura_nombre(nom_asi);
         c.setAsignatura_numero_creditos(num_cre);
         c.setProfesor_id(id_pro);
@@ -143,5 +171,13 @@ public class ServiceAsignatura implements Services<asignatura> {
             }
         }while(d != 0);
         
+    }
+
+    public boolean validarId(int id) {
+        Object entidad = asignaturaRepositorio.porCodigo(id);
+        if (entidad == null) {
+            return false;
+        }
+        return true;
     }
 }
