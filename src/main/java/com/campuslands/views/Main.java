@@ -13,8 +13,7 @@ public class Main extends ServiceReportes{
 
         int op = 0;
         while (true) {
-            System.out.print("\033[H\033[2J");  
-            System.out.flush();  
+            clearScreen();
             System.out.println("=======================================");
             System.out.println("MENU PRINCIPAL\n");
             System.out.println("1.Alumno");
@@ -46,69 +45,89 @@ public class Main extends ServiceReportes{
         switch (op) {
             case 1 -> {
                 Services alumno = fabrica.getConexion("alumnos");
+                clearScreen();
                 alumno.menu();
             }
             case 2 -> {
                 Services asignatura = fabrica.getConexion("asignaturas");
+                clearScreen();
                 asignatura.menu();
             }
             case 3 -> {
                 Services ciudad = fabrica.getConexion("ciudades");
+                clearScreen();
                 ciudad.menu();
             }
             case 4 -> {
                 Services curso = fabrica.getConexion("cursos");
+                clearScreen();
                 curso.menu();
             }
             case 5 -> {
                 Services departamento = fabrica.getConexion("departamentos");
+                clearScreen();
                 departamento.menu();
             }
             case 6 -> {
                 Services direccion = fabrica.getConexion("direcciones");
+                clearScreen();
                 direccion.menu();
             }
             case 7 -> {
                 Services edificio = fabrica.getConexion("edificios");
+                clearScreen();
                 edificio.menu();
             }
             case 8 -> {
                 Services horario = fabrica.getConexion("horarios");
+                clearScreen();
                 horario.menu();
             }
             case 9 -> {
                 Services matricula = fabrica.getConexion("matriculas");
+                clearScreen();
                 matricula.menu();
             }
             case 10 -> {
                 Services periodo = fabrica.getConexion("periodos");
+                clearScreen();
                 periodo.menu();
             }
             case 11 -> {
                 Services persona = fabrica.getConexion("personas");
+                clearScreen();
                 persona.menu();
             }
             case 12 -> {
                 Services profesor = fabrica.getConexion("profesores");
+                clearScreen();
                 profesor.menu();
             }
             case 13 -> {
                 Services programa = fabrica.getConexion("programas");
+                clearScreen();
                 programa.menu();
             }
             case 14 -> {
                 Services salon = fabrica.getConexion("salones");
+                clearScreen();
                 salon.menu();
             }
             case 15 -> {
                 Services tarifa = fabrica.getConexion("tarifas");
+                clearScreen();
                 tarifa.menu();
             }
             case 16 -> {
+                clearScreen();
                 menuReportes();
             }
             default -> fabrica.getConexion("Se equivoco");
         };      
 
     }
+    public static void clearScreen() {  
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
+    } 
 }
