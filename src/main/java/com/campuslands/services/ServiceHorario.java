@@ -10,6 +10,8 @@ public class ServiceHorario implements Services<horario> {
     public static Scanner leer = new Scanner(System.in);
     @SuppressWarnings("rawtypes")
     private static final repository horarioRepositorio = new horarioImpl();
+    @SuppressWarnings("unchecked")
+    List<horario> listarHorarios = horarioRepositorio.listar();
 
     public void limpiar(){
         leer.nextLine();
@@ -19,30 +21,55 @@ public class ServiceHorario implements Services<horario> {
     public horario datos(){
         horario c = new horario();
         int id_asi, id_sal;
+        String dia, h_inicio, h_fin;
 
-        System.out.print("Digite el dia (sin tilde) --> ");
-        String dia = leer.next();
-        
-        System.out.print("Digite la hora de inicio (hh:mm) --> ");
-        String h_inicio = leer.next();
+        while (true) {
 
-        System.out.print("Digite la hora de fin (hh:mm) --> ");
-        String h_fin = leer.next();
+            System.out.print("Digite el dia (sin tilde) --> ");
+            dia = leer.next();
+            
+            System.out.print("Digite la hora de inicio (hh:mm) --> ");
+            h_inicio = leer.next();
 
-        while(true){
-            System.out.print("Digite el id del salon --> ");
-            id_sal = leer.nextInt();
-            if (!validarId(id_sal)) {
-                System.out.println("\nEl id no existe, vuelva a intentarlo");
-                continue;
+            System.out.print("Digite la hora de fin (hh:mm) --> ");
+            h_fin = leer.next();
+
+            while(true){
+                System.out.print("Digite el id del salon --> ");
+                id_sal = leer.nextInt();
+                if (!validarId(id_sal)) {
+                    System.out.println("\nEl id no existe, vuelva a intentarlo");
+                    continue;
+                }
+                break;
             }
-            break;
-        }
-        while(true){
-            System.out.print("Digite el id de la asignatura --> ");
-            id_asi = leer.nextInt();
-            if (!validarId(id_asi)) {
-                System.out.println("\nEl id no existe, vuelva a intentarlo");
+            while(true){
+                System.out.print("Digite el id de la asignatura --> ");
+                id_asi = leer.nextInt();
+                if (!validarId(id_asi)) {
+                    System.out.println("\nEl id no existe, vuelva a intentarlo");
+                    continue;
+                }
+                break;
+            }
+            boolean desi = true;
+            for (horario h : listarHorarios) {
+                if (h.getHorario_dia().equals(dia)) {
+                    if (h.getHorario_hora_inicio().equals(h_inicio)) {
+                        if (h.getHorario_hora_fin().equals(h_fin)) {
+                            if (h.getSalon_id() == id_sal) {
+                                System.out.println("\nError, ese salon ya tiene un horario");
+                                desi = false;
+                            }
+                            if (h.getAsignatura_id() == id_asi) {
+                                System.out.println("\nError, esa asignatura ya tiene un horario");
+                                desi = false;
+                            }
+                        }
+                    }
+                }
+            }
+            if (!desi) {
                 continue;
             }
             break;
