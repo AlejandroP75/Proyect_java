@@ -27,7 +27,6 @@ public class Main {
             System.out.println("13.Programa");
             System.out.println("14.Salon");
             System.out.println("15.Tarifa");
-            System.out.println("16.reportes");
             System.out.println("=======================================");
             System.out.print("Ingrese la opcion que desea--> ");
             op = leer.nextInt();
